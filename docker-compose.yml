@@ -3,19 +3,15 @@
 
 version: "3"
 
-networks:
-  ssl-reverse-proxy:
-    external: yes
-
 services:
   postgres:
     image: postgres:11.6  # due to postgresql-client version 11.6 in Alpine 3.10
     volumes:
       - ~/.jawanndenn-docker-pgdata/:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: ${JAWANNDENN_POSTGRES_USER:?}
-      POSTGRES_PASSWORD: ${JAWANNDENN_POSTGRES_PASSWORD:?}
-      POSTGRES_DB: ${JAWANNDENN_POSTGRES_NAME:?}
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: test
+      POSTGRES_DB: test
     logging:
       driver: 'none'
     cap_drop:
@@ -50,18 +46,17 @@ services:
       - 127.0.0.1:54080:54080
     networks:
       - default
-      - ssl-reverse-proxy
     environment:
       JAWANNDENN_DEBUG: ${JAWANNDENN_DEBUG}
       JAWANNDENN_MAX_POLLS: ${JAWANNDENN_MAX_POLLS:-1000}
       JAWANNDENN_POSTGRES_HOST: postgres
       JAWANNDENN_POSTGRES_PORT: 5432
-      JAWANNDENN_POSTGRES_NAME: ${JAWANNDENN_POSTGRES_NAME:?}
-      JAWANNDENN_POSTGRES_USER: ${JAWANNDENN_POSTGRES_USER:?}
-      JAWANNDENN_POSTGRES_PASSWORD: ${JAWANNDENN_POSTGRES_PASSWORD:?}
+      JAWANNDENN_POSTGRES_NAME: test
+      JAWANNDENN_POSTGRES_USER: test
+      JAWANNDENN_POSTGRES_PASSWORD: test
       JAWANNDENN_REDIS_HOST: redis
       JAWANNDENN_REDIS_PORT: 6379
-      JAWANNDENN_SECRET_KEY: ${JAWANNDENN_SECRET_KEY:?}
+      JAWANNDENN_SECRET_KEY: test
       JAWANNDENN_SENTRY_DSN: ${JAWANNDENN_SENTRY_DSN}
       JAWANNDENN_URL_PREFIX: ${JAWANNDENN_URL_PREFIX}
     user: 1001:1001
